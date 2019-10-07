@@ -27,7 +27,6 @@ function submit(e, fileField) {
     tmxReader.readAsText(tmxFile)
     tmxReader.onload = f => {
       const xml = f.target.result
-      console.log(f.target)
       const parser = new DOMParser()
       const xmlDoc = parser.parseFromString(xml, 'text/xml')
       const map = xmlDoc.getElementsByTagName('map')[0]
@@ -88,8 +87,6 @@ function submit(e, fileField) {
           },
           layers: layerData
         }
-
-        console.log(mapData)
 
         const canvas = document.querySelector('#canvas')
         canvas.width = mapData.width * mapData.tileWidth
