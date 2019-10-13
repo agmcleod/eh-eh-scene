@@ -4,9 +4,17 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.1",
+    "bootstrap": "^4.3.1",
+    "formik": "^1.5.8",
+    "immer": "^4.0.1",
     "react": "^16.8.6",
+    "react-bootstrap": "^1.0.0-beta.14",
     "react-dom": "^16.8.6",
+    "react-redux": "^7.1.1",
     "react-scripts": "3.0.1",
+    "redux": "^4.0.4",
+    "redux-starter-kit": "^0.7.0",
+    "redux-thunk": "^2.3.0",
     "styled-components": "^4.2.0"
   },
   "scripts": {
