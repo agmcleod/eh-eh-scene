@@ -1,15 +1,23 @@
-import produce from 'immer'
-import { createSlice } from 'redux-starter-kit'
+import { createSlice, createSelector } from 'redux-starter-kit'
 
-export const componentSlice = createSlice({
-  slice: 'component',
+export const componentsSlice = createSlice({
+  slice: 'components',
   initialState: {},
   reducers: {
     setComponent: (state, { payload }) => {
-      return produce(state, draftState => {
-        const { name, ...data } = payload
-        draftState[name] = data
-      })
+      const { name, ...data } = payload
+      state[name] = data
+
+      return state
     }
   }
 })
+
+const components = state => state.components
+
+componentsSlice.selectors = {
+  getComponents: createSelector(
+    [components],
+    components => Object.values(components)
+  )
+}

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
-import { componentSlice } from './components'
+import { componentsSlice } from './components'
 
 export const rootReducer = combineReducers({
-  component: componentSlice.reducer
+  components: componentsSlice.reducer
 })
