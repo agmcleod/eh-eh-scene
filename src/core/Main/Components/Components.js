@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Formik } from 'formik'
+import { Formik, FieldArray } from 'formik'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
@@ -9,8 +9,12 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 
+import { Select } from 'common/components/Select'
+import { validationSchema } from './validationSchema'
+
 const initialValues = {
-  name: ''
+  name: '',
+  fields: []
 }
 
 export const Components = ({ components }) => {
@@ -40,7 +44,8 @@ export const Components = ({ components }) => {
         </DialogTitle>
         <Formik
           initialValues={initialValues}
-          render={({ handleSubmit }) => {
+          validationSchema={validationSchema}
+          render={({ handleSubmit, values }) => {
             return (
               <>
                 <DialogContent>
@@ -48,9 +53,49 @@ export const Components = ({ components }) => {
                     autoFocus
                     margin='dense'
                     id='name'
-                    label='Email Address'
-                    type='email'
+                    label='Name'
+                    type='text'
                     fullWidth
+                  />
+                  <FieldArray
+                    name='fields'
+                    render={fieldsArrayHelper => {
+                      return (
+                        <>
+                          {values.fields.map((_, i) => {
+                            return (
+                              <React.Fragment key={i}>
+                                <TextField
+                                  name={`fields[${i}].name`}
+                                  id={`fields[${i}].name`}
+                                  label='Field Name'
+                                  type='text'
+                                  fullWidth
+                                />
+                                <Select
+                                  id={`fields[${i}].type`}
+                                  label='Field Type'
+                                  name={`fields[${i}].type`}
+                                  options={[
+                                    { label: 'array', value: 'array' },
+                                    { label: 'bool', value: 'bool' },
+                                    { label: 'number', value: 'number' },
+                                    { label: 'string', value: 'string' }
+                                  ]}
+                                />
+                              </React.Fragment>
+                            )
+                          })}
+                          <Button
+                            onClick={() =>
+                              fieldsArrayHelper.push([{ name: '', type: '' }])
+                            }
+                          >
+                            Add Field
+                          </Button>
+                        </>
+                      )
+                    }}
                   />
                 </DialogContent>
                 <DialogActions>
@@ -61,7 +106,7 @@ export const Components = ({ components }) => {
                     Cancel
                   </Button>
                   <Button onClick={handleSubmit} color='primary'>
-                    create
+                    Create
                   </Button>
                 </DialogActions>
               </>
