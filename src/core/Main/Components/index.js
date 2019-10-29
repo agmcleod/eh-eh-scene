@@ -7,4 +7,7 @@ const mapStateToProps = state => ({
   components: componentsSlice.selectors.getComponents(state)
 })
 
-export const Components = connect(mapStateToProps)(ComponentsComp)
+export const Components = connect(
+  mapStateToProps,
+  { setComponent: componentsSlice.actions.setComponent }
+)(ComponentsComp)
