@@ -59,7 +59,7 @@ export const ComponentsForm = ({ setCreateDialogOpen, setComponent }) => (
                     })}
                     <Button
                       onClick={() =>
-                        fieldsArrayHelper.push([{ name: '', type: '' }])
+                        fieldsArrayHelper.push({ name: '', type: '' })
                       }
                     >
                       Add Field
