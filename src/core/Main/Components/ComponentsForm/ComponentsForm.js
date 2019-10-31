@@ -2,12 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Formik, FieldArray } from 'formik'
 import DialogActions from '@material-ui/core/DialogActions'
-import TextField from '@material-ui/core/TextField'
 import DialogContent from '@material-ui/core/DialogContent'
 import Button from '@material-ui/core/Button'
 
 import { Select } from 'common/components/Select'
-import { validationSchema } from '../validationSchema'
+import { TextField } from 'common/components/TextField'
+import { validationSchema } from './validationSchema'
 
 const initialValues = {
   name: '',
@@ -26,14 +26,7 @@ export const ComponentsForm = ({ setCreateDialogOpen, setComponent }) => (
       return (
         <>
           <DialogContent>
-            <TextField
-              autoFocus
-              margin='dense'
-              id='name'
-              label='Name'
-              type='text'
-              fullWidth
-            />
+            <TextField name='name' label='Name' type='text' fullWidth />
             <FieldArray
               name='fields'
               render={fieldsArrayHelper => {
@@ -45,7 +38,6 @@ export const ComponentsForm = ({ setCreateDialogOpen, setComponent }) => (
                         <React.Fragment key={i}>
                           <TextField
                             name={`fields[${i}].name`}
-                            id={`fields[${i}].name`}
                             label='Field Name'
                             type='text'
                             fullWidth
