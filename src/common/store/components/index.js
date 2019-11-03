@@ -7,6 +7,7 @@ export const componentsSlice = createSlice({
     setComponent: (state, { payload }) => {
       const { name, ...data } = payload
       state[name] = data
+      state[name].name = name
 
       return state
     }

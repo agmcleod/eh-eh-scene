@@ -3,11 +3,10 @@ import PropTypes from 'prop-types'
 import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import Button from '@material-ui/core/Button'
-import Grid from '@material-ui/core/Grid'
 
 import { ComponentsForm } from './ComponentsForm'
 
-export const Components = ({ components, setComponent }) => {
+export const Components = ({ components }) => {
   const [createDialogOpen, setCreateDialogOpen] = useState(false)
 
   return (
@@ -19,15 +18,25 @@ export const Components = ({ components, setComponent }) => {
       >
         Create New Component
       </Button>
-      <Grid>
+      <div>
         {components.map(c => {
           return (
             <div key={c.name}>
               <h3>{c.name}</h3>
+              <table>
+                <tbody>
+                  {c.fields.map(field => (
+                    <tr key={field.name}>
+                      <td>{field.name}</td>
+                      <td>{field.type}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           )
         })}
-      </Grid>
+      </div>
       <Dialog open={createDialogOpen} aria-labelledby='create-component-form'>
         <DialogTitle id='create-component-form'>
           Create New Component

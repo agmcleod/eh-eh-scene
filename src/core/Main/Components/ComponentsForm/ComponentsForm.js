@@ -5,6 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import Button from '@material-ui/core/Button'
 
+import { FIELD_TYPES } from 'common/constants'
 import { Select } from 'common/components/Select'
 import { TextField } from 'common/components/TextField'
 import { validationSchema } from './validationSchema'
@@ -20,6 +21,7 @@ export const ComponentsForm = ({ setCreateDialogOpen, setComponent }) => (
     onSubmit={(values, { setSubmitting }) => {
       setComponent(values)
       setSubmitting(false)
+      setCreateDialogOpen(false)
     }}
     validationSchema={validationSchema}
     render={({ handleSubmit, values }) => {
@@ -47,10 +49,17 @@ export const ComponentsForm = ({ setCreateDialogOpen, setComponent }) => (
                             label='Field Type'
                             name={`fields[${i}].type`}
                             options={[
-                              { label: 'array', value: 'array' },
-                              { label: 'bool', value: 'bool' },
-                              { label: 'number', value: 'number' },
-                              { label: 'string', value: 'string' }
+                              {
+                                label: FIELD_TYPES.array_number,
+                                value: 'array<number>'
+                              },
+                              {
+                                label: FIELD_TYPES.array_string,
+                                value: 'array<string>'
+                              },
+                              { label: FIELD_TYPES.boolean, value: 'bool' },
+                              { label: FIELD_TYPES.number, value: 'number' },
+                              { label: FIELD_TYPES.string, value: 'string' }
                             ]}
                             value={values[`fields[${i}].type`]}
                           />
