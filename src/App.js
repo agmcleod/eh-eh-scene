@@ -11,3 +11,11 @@ export const App = () => {
     </Provider>
   )
 }
+
+window.ipcRenderer.on('save-requested', (ev, filePath) => {
+  const { components } = store.getState()
+  window.ipcRenderer.send('save-data', {
+    data: JSON.stringify({ components }),
+    filePath
+  })
+})
