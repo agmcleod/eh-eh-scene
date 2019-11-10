@@ -1,5 +1,7 @@
 import { createSlice } from 'redux-starter-kit'
 
+import { hydrate } from 'common/store/actions'
+
 export const mapDataSlice = createSlice({
   slice: 'mapData',
   initialState: {
@@ -10,6 +12,11 @@ export const mapDataSlice = createSlice({
       ...state,
       tmxFilePath: payload
     })
+  },
+  extraReducers: {
+    [hydrate]: (state, { payload }) => {
+      return payload.mapData
+    }
   }
 })
 

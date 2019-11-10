@@ -1,5 +1,7 @@
 import { createSlice, createSelector } from 'redux-starter-kit'
 
+import { hydrate } from 'common/store/actions'
+
 export const componentsSlice = createSlice({
   slice: 'components',
   initialState: {},
@@ -10,6 +12,11 @@ export const componentsSlice = createSlice({
       state[name].name = name
 
       return state
+    }
+  },
+  extraReducers: {
+    [hydrate]: (state, { payload }) => {
+      return payload.components
     }
   }
 })

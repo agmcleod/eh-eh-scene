@@ -21,8 +21,8 @@ module.exports.openLevel = async mainWindow => {
       if (err) {
         dialog.showErrorBox('Failed to open level file', err.message)
       } else {
-        mainWindow.webContents.send(ELECTRON_EVENTS.open_level, mapData)
         const data = JSON.parse(mapData)
+        mainWindow.webContents.send(ELECTRON_EVENTS.open_level, data)
         loadMap(
           path.resolve(levelFilePath, data.mapData.tmxFilePath),
           (tmxPath, mapData, imageData) => {

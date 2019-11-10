@@ -4,6 +4,12 @@ const path = require('path')
 const fs = require('fs')
 const url = require('url')
 
+const {
+  default: installExtension,
+  REACT_DEVELOPER_TOOLS,
+  REDUX_DEVTOOLS
+} = require('electron-devtools-installer')
+
 // Module to control application life.
 const { app, dialog, ipcMain } = electron
 // Module to create native browser window.
@@ -35,7 +41,14 @@ const saveAs = async () => {
   }
 }
 
-function createWindow() {
+async function createWindow() {
+  try {
+    await installExtension(REACT_DEVELOPER_TOOLS)
+    await installExtension(REDUX_DEVTOOLS)
+  } catch (e) {
+    console.error('Error installing extensions', e.message)
+  }
+
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 1280,

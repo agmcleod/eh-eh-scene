@@ -3,6 +3,7 @@ import { Provider } from 'react-redux'
 
 import { ELECTRON_EVENTS } from 'common/constants'
 import { store } from 'common/store'
+import { hydrate } from 'common/store/actions'
 import { Main } from './core/Main'
 
 export const App = () => {
@@ -19,4 +20,8 @@ window.ipcRenderer.on(ELECTRON_EVENTS.save_requested, (ev, filePath) => {
     data: JSON.stringify({ components, mapData }),
     filePath
   })
+})
+
+window.ipcRenderer.on(ELECTRON_EVENTS.open_level, (ev, data) => {
+  store.dispatch(hydrate(data))
 })
