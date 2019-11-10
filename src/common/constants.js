@@ -10,7 +10,8 @@ const ELECTRON_EVENTS = {
   save_data: 'save-data',
   save_requested: 'save-requested',
   import_map: 'import-map',
-  import_map_success: 'import-map-success'
+  import_map_success: 'import-map-success',
+  open_level: 'open-level'
 }
 
 module.exports = {

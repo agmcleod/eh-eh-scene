@@ -1,5 +1,5 @@
 const electron = require('electron')
-const xmljs = require('xml-js')
+
 const path = require('path')
 const fs = require('fs')
 const url = require('url')
@@ -10,6 +10,7 @@ const { app, dialog, ipcMain } = electron
 const BrowserWindow = electron.BrowserWindow
 
 const { createMenuTemplate } = require('./electron/createMenuTemplate')
+const { importMap } = require('./electron/importMap')
 
 const { ELECTRON_EVENTS } = require('./common/constants')
 
@@ -74,63 +75,19 @@ function createWindow() {
   })
 
   ipcMain.on(ELECTRON_EVENTS.save_data, async (event, args) => {
-    fs.writeFile(args.filePath, args.data, err => {
+    const data = JSON.parse(args.data)
+    data.mapData.tmxFilePath = path.relative(
+      args.filePath,
+      data.mapData.tmxFilePath
+    )
+    fs.writeFile(args.filePath, JSON.stringify(data), err => {
       if (err) {
         dialog.showErrorBox('Failed to save file', err.message)
       }
     })
   })
 
-  ipcMain.on(ELECTRON_EVENTS.import_map, async event => {
-    const target = await dialog.showOpenDialog(mainWindow, {
-      filters: [
-        {
-          name: 'Tiled Map',
-          extensions: ['tmx']
-        }
-      ]
-    })
-
-    if (!target.canceled) {
-      fs.readFile(target.filePaths[0], 'utf8', (err, mapData) => {
-        if (err) {
-          dialog.showErrorBox('Failed to opne tmx file', err.message)
-        } else {
-          const tmx = xmljs.xml2js(mapData)
-          const map = tmx.elements.find(el => el.name === 'map')
-          const tileset = map.elements.find(el => el.name === 'tileset')
-          const images = tileset.elements.filter(el => el.name === 'image')
-          const imageData = []
-          for (const image of images) {
-            const imagePath = path.join(
-              path.dirname(target.filePaths[0]),
-              image.attributes.source
-            )
-            fs.readFile(imagePath, (err, data) => {
-              if (err) {
-                dialog.showErrorBox('Failed to opne tmx file', err.message)
-              } else {
-                const extname = path.extname(imagePath).replace('.', '')
-                imageData.push({
-                  data: `data:image/${extname};base64,${Buffer.from(
-                    data
-                  ).toString('base64')}`,
-                  name: image.attributes.source
-                })
-                if (imageData.length === images.length) {
-                  event.reply(
-                    ELECTRON_EVENTS.import_map_success,
-                    mapData,
-                    imageData
-                  )
-                }
-              }
-            })
-          }
-        }
-      })
-    }
-  })
+  ipcMain.on(ELECTRON_EVENTS.import_map, importMap(mainWindow))
 }
 
 // This method will be called when Electron has finished

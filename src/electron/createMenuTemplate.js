@@ -1,4 +1,6 @@
-const { app, dialog } = require('electron')
+const { app } = require('electron')
+
+const { openLevel } = require('./openLevel')
 
 const isMac = process.platform === 'darwin'
 
@@ -21,6 +23,7 @@ module.exports.createMenuTemplate = (window, options) => [
     label: 'File',
     submenu: [
       { label: 'New', click: () => window.webContents.send('new-project') },
+      { label: 'Open', click: () => openLevel(window) },
       { label: 'Save' },
       {
         label: 'Save As',

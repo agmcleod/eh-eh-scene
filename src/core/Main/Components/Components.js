@@ -48,6 +48,5 @@ export const Components = ({ components }) => {
 }
 
 Components.propTypes = {
-  components: PropTypes.array.isRequired,
-  setComponent: PropTypes.func.isRequired
+  components: PropTypes.array.isRequired
 }

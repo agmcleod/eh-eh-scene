@@ -1,5 +1,4 @@
 export const renderMap = (ctx, mapData, image) => {
-  console.log(image)
   const { firstgid, margin, spacing, tileWidth, tileHeight } = mapData.tileset
 
   const tilesWide = ~~(image.width / (tileWidth + spacing))

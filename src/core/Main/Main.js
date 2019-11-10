@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import Container from '@material-ui/core/Container'
 import Button from '@material-ui/core/Button'
 import Tabs from '@material-ui/core/Tabs'
@@ -10,18 +11,18 @@ import { parseMapData } from 'common/parseMapData'
 import { TabPanel } from 'common/components/TabPanel'
 import { Components } from './Components'
 
-export const Main = () => {
+export const Main = ({ setTmxFilePath }) => {
   const canvas = React.createRef()
 
   const [currentTab, setTab] = useState(0)
 
   useEffect(() => {
-    const listener = (ev, mapData, images) => {
-      console.log('mapData', mapData, 'images', images)
+    const listener = (ev, tmxPath, mapData, images) => {
       parseMapData(mapData, images, (err, mapData, tilesetImage) => {
         if (err) {
           console.error(err)
         } else {
+          setTmxFilePath(tmxPath)
           const canvas = document.querySelector('#canvas')
           canvas.width = mapData.width * mapData.tileWidth
           canvas.height = mapData.height * mapData.tileHeight
@@ -42,7 +43,7 @@ export const Main = () => {
         ELECTRON_EVENTS.import_map_success,
         listener
       )
-  }, [])
+  }, [setTmxFilePath])
 
   return (
     <Container>
@@ -75,4 +76,8 @@ export const Main = () => {
       </TabPanel>
     </Container>
   )
+}
+
+Main.propTypes = {
+  setTmxFilePath: PropTypes.func.isRequired
 }

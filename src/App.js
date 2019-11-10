@@ -14,9 +14,9 @@ export const App = () => {
 }
 
 window.ipcRenderer.on(ELECTRON_EVENTS.save_requested, (ev, filePath) => {
-  const { components } = store.getState()
+  const { components, mapData } = store.getState()
   window.ipcRenderer.send(ELECTRON_EVENTS.save_data, {
-    data: JSON.stringify({ components }),
+    data: JSON.stringify({ components, mapData }),
     filePath
   })
 })
