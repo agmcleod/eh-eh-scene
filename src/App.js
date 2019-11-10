@@ -1,6 +1,7 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 
+import { ELECTRON_EVENTS } from 'common/constants'
 import { store } from 'common/store'
 import { Main } from './core/Main'
 
@@ -12,9 +13,9 @@ export const App = () => {
   )
 }
 
-window.ipcRenderer.on('save-requested', (ev, filePath) => {
+window.ipcRenderer.on(ELECTRON_EVENTS.save_requested, (ev, filePath) => {
   const { components } = store.getState()
-  window.ipcRenderer.send('save-data', {
+  window.ipcRenderer.send(ELECTRON_EVENTS.save_data, {
     data: JSON.stringify({ components }),
     filePath
   })
