@@ -4,6 +4,7 @@ import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import Button from '@material-ui/core/Button'
 
+import { FIELD_TYPE_DETAILS } from 'common/constants'
 import { ComponentsForm } from './ComponentsForm'
 
 export const Components = ({ components }) => {
@@ -38,11 +39,17 @@ export const Components = ({ components }) => {
                 </Button>
               </h3>
               <table>
+                <thead>
+                  <tr>
+                    <th>Field Name</th>
+                    <th>Field Type</th>
+                  </tr>
+                </thead>
                 <tbody>
                   {c.fields.map(field => (
                     <tr key={field.name}>
                       <td>{field.name}</td>
-                      <td>{field.type}</td>
+                      <td>{FIELD_TYPE_DETAILS[field.type].name}</td>
                     </tr>
                   ))}
                 </tbody>

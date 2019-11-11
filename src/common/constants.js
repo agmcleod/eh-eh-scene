@@ -8,6 +8,16 @@ const FIELD_TYPES = {
   boolean: 'boolean'
 }
 
+const FIELD_TYPE_DETAILS = {
+  [FIELD_TYPES.array_frame_name]: { name: 'Array<FrameName>' },
+  [FIELD_TYPES.array_string]: { name: 'Array<String>' },
+  [FIELD_TYPES.array_number]: { name: 'Array<Number>' },
+  [FIELD_TYPES.frame_name]: { name: 'Frame Name' },
+  [FIELD_TYPES.number]: { name: 'Number' },
+  [FIELD_TYPES.string]: { name: 'String' },
+  [FIELD_TYPES.boolean]: { name: 'Boolea' }
+}
+
 const ELECTRON_EVENTS = {
   save_data: 'save-data',
   save_requested: 'save-requested',
@@ -18,5 +28,6 @@ const ELECTRON_EVENTS = {
 
 module.exports = {
   FIELD_TYPES,
+  FIELD_TYPE_DETAILS,
   ELECTRON_EVENTS
 }

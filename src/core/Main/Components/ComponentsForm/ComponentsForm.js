@@ -5,7 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import Button from '@material-ui/core/Button'
 
-import { FIELD_TYPES } from 'common/constants'
+import { FIELD_TYPES, FIELD_TYPE_DETAILS } from 'common/constants'
 import { Select } from 'common/components/Select'
 import { TextField } from 'common/components/TextField'
 import { validationSchema } from './validationSchema'
@@ -64,27 +64,10 @@ export const ComponentsForm = ({
                               id={`fields[${i}].type`}
                               label='Field Type'
                               name={`fields[${i}].type`}
-                              options={[
-                                {
-                                  label: FIELD_TYPES.array_frame_name,
-                                  value: 'array<frame>'
-                                },
-                                {
-                                  label: FIELD_TYPES.array_number,
-                                  value: 'array<number>'
-                                },
-                                {
-                                  label: FIELD_TYPES.array_string,
-                                  value: 'array<string>'
-                                },
-                                { label: FIELD_TYPES.boolean, value: 'bool' },
-                                {
-                                  label: FIELD_TYPES.frame_name,
-                                  value: 'frame'
-                                },
-                                { label: FIELD_TYPES.number, value: 'number' },
-                                { label: FIELD_TYPES.string, value: 'string' }
-                              ]}
+                              options={Object.values(FIELD_TYPES).map(type => ({
+                                label: FIELD_TYPE_DETAILS[type].name,
+                                value: type
+                              }))}
                               value={values[`fields[${i}].type`]}
                             />
                           </React.Fragment>
