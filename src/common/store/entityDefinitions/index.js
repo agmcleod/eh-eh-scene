@@ -1,0 +1,1 @@
+export { entityDefinitionsSlice } from './slice'
