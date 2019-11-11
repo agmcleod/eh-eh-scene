@@ -22,13 +22,21 @@ module.exports.createMenuTemplate = (window, options) => [
   {
     label: 'File',
     submenu: [
-      { label: 'New', click: () => window.webContents.send('new-project') },
-      { label: 'Open', click: () => openLevel(window) },
+      {
+        label: 'New',
+        click: () => window.webContents.send('new-project')
+      },
+      {
+        label: 'Open',
+        click: () => openLevel(window),
+        accelerator: 'CmdOrCtrl+O'
+      },
       { label: 'Save' },
       {
         label: 'Save As',
         click: options.saveAs
       },
+      { role: 'toggleDevTools', label: 'Dev Tools' },
       isMac ? { role: 'close' } : { role: 'quit' }
     ]
   },

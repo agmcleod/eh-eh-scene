@@ -8,10 +8,9 @@ export const mapDataSlice = createSlice({
     tmxFilePath: ''
   },
   reducers: {
-    setTmxFilePath: (state, { payload }) => ({
-      ...state,
-      tmxFilePath: payload
-    })
+    setTmxFilePath: (state, { payload }) => {
+      state.tmxFilePath = payload
+    }
   },
   extraReducers: {
     [hydrate]: (state, { payload }) => {

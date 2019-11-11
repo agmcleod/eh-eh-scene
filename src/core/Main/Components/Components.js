@@ -8,21 +8,35 @@ import { ComponentsForm } from './ComponentsForm'
 
 export const Components = ({ components }) => {
   const [createDialogOpen, setCreateDialogOpen] = useState(false)
+  const [editComponentIndex, setEditComponentIndex] = useState(undefined)
 
   return (
     <>
       <Button
         variant='contained'
         color='primary'
-        onClick={() => setCreateDialogOpen(true)}
+        onClick={() => {
+          setEditComponentIndex(undefined)
+          setCreateDialogOpen(true)
+        }}
       >
         Create New Component
       </Button>
       <div>
-        {components.map(c => {
+        {components.map((c, i) => {
           return (
             <div key={c.name}>
-              <h3>{c.name}</h3>
+              <h3>
+                {c.name}{' '}
+                <Button
+                  onClick={() => {
+                    setEditComponentIndex(i)
+                    setCreateDialogOpen(true)
+                  }}
+                >
+                  Edit
+                </Button>
+              </h3>
               <table>
                 <tbody>
                   {c.fields.map(field => (
@@ -41,7 +55,10 @@ export const Components = ({ components }) => {
         <DialogTitle id='create-component-form'>
           Create New Component
         </DialogTitle>
-        <ComponentsForm setCreateDialogOpen={setCreateDialogOpen} />
+        <ComponentsForm
+          editIndex={editComponentIndex}
+          setCreateDialogOpen={setCreateDialogOpen}
+        />
       </Dialog>
     </>
   )

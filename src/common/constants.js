@@ -1,6 +1,8 @@
 const FIELD_TYPES = {
+  array_frame_name: 'array_frame_name',
   array_string: 'array_string',
   array_number: 'array_number',
+  frame_name: 'frame_name',
   number: 'number',
   string: 'string',
   boolean: 'boolean'
