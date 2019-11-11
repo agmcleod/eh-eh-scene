@@ -7,7 +7,6 @@ import TextFieldMaterial from '@material-ui/core/TextField'
 export const TextField = ({ label, name, ...props }) => (
   <Field name={name}>
     {({ field, form }) => {
-      console.log({ field })
       const touched = get(form.touched, field.name, false)
       const error = get(form.errors, field.name, '')
       const hasError = touched && error
