@@ -9,6 +9,7 @@ import { FIELD_TYPES, FIELD_TYPE_DETAILS } from 'common/constants'
 import { Select } from 'common/components/Select'
 import { TextField } from 'common/components/TextField'
 import { validationSchema } from './validationSchema'
+import { FieldWrapper } from './styledComponents'
 
 export const ComponentsForm = ({
   components,
@@ -53,7 +54,7 @@ export const ComponentsForm = ({
                       <legend>Fields</legend>
                       {values.fields.map((_, i) => {
                         return (
-                          <React.Fragment key={i}>
+                          <FieldWrapper key={i}>
                             <TextField
                               name={`fields[${i}].name`}
                               label='Field Name'
@@ -70,7 +71,7 @@ export const ComponentsForm = ({
                               }))}
                               value={values[`fields[${i}].type`]}
                             />
-                          </React.Fragment>
+                          </FieldWrapper>
                         )
                       })}
                       <Button

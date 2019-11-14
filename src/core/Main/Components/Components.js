@@ -4,8 +4,12 @@ import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import Button from '@material-ui/core/Button'
 
+import { TopActionButton } from 'common/components/TopActionButton'
+import { H3 } from 'common/components/Header'
 import { FIELD_TYPE_DETAILS } from 'common/constants'
 import { ComponentsForm } from './ComponentsForm'
+
+import { ComponentWrapper } from './styledComponents'
 
 export const Components = ({ components }) => {
   const [createDialogOpen, setCreateDialogOpen] = useState(false)
@@ -13,21 +17,19 @@ export const Components = ({ components }) => {
 
   return (
     <>
-      <Button
-        variant='contained'
-        color='primary'
+      <TopActionButton
         onClick={() => {
           setEditComponentIndex(undefined)
           setCreateDialogOpen(true)
         }}
       >
         Create New Component
-      </Button>
+      </TopActionButton>
       <div>
         {components.map((c, i) => {
           return (
-            <div key={c.name}>
-              <h3>
+            <ComponentWrapper key={c.name}>
+              <H3>
                 {c.name}{' '}
                 <Button
                   onClick={() => {
@@ -37,7 +39,7 @@ export const Components = ({ components }) => {
                 >
                   Edit
                 </Button>
-              </h3>
+              </H3>
               <table>
                 <thead>
                   <tr>
@@ -54,7 +56,7 @@ export const Components = ({ components }) => {
                   ))}
                 </tbody>
               </table>
-            </div>
+            </ComponentWrapper>
           )
         })}
       </div>

@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 
+import { H1 } from 'common/components/Header'
 import { ELECTRON_EVENTS } from 'common/constants'
 import { renderMap } from 'common/renderMap'
 import { parseMapData } from 'common/parseMapData'
@@ -47,7 +48,7 @@ export const Main = ({ setTmxFilePath }) => {
 
   return (
     <Container>
-      <h1>Level</h1>
+      <H1>Level</H1>
       <div>
         <label htmlFor='file'>Select .tmx file</label>
         <Button
@@ -66,12 +67,14 @@ export const Main = ({ setTmxFilePath }) => {
         onChange={(_, newValue) => setTab(newValue)}
       >
         <Tab label='scene' />
+        <Tab label='entity definitions' />
         <Tab label='components' />
       </Tabs>
       <TabPanel index={0} value={currentTab}>
         <canvas id='canvas' ref={canvas} />
       </TabPanel>
-      <TabPanel index={1} value={currentTab}>
+      <TabPanel index={1} value={currentTab} />
+      <TabPanel index={2} value={currentTab}>
         <Components />
       </TabPanel>
     </Container>
