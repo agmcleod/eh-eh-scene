@@ -24,3 +24,10 @@ export const entityDefinitionsSlice = createSlice({
     }
   }
 })
+
+const getEntityDefinitions = state =>
+  state[entityDefinitionsSlice.slice].entityDefinitions
+
+entityDefinitionsSlice.selectors = {
+  getEntityDefinitions
+}

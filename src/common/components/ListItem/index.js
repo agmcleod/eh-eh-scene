@@ -1,5 +1,5 @@
 import styled from 'styled-components'
 
-export const ComponentWrapper = styled.div`
+export const ListItem = styled.div`
   margin-bottom: 20px;
 `

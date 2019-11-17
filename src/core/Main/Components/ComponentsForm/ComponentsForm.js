@@ -7,9 +7,9 @@ import Button from '@material-ui/core/Button'
 
 import { FIELD_TYPES, FIELD_TYPE_DETAILS } from 'common/constants'
 import { Select } from 'common/components/Select'
+import { ArrayFieldWrapper } from 'common/components/ArrayFieldWrapper'
 import { TextField } from 'common/components/TextField'
 import { validationSchema } from './validationSchema'
-import { FieldWrapper } from './styledComponents'
 
 export const ComponentsForm = ({
   components,
@@ -54,7 +54,7 @@ export const ComponentsForm = ({
                       <legend>Fields</legend>
                       {values.fields.map((_, i) => {
                         return (
-                          <FieldWrapper key={i}>
+                          <ArrayFieldWrapper key={i}>
                             <TextField
                               name={`fields[${i}].name`}
                               label='Field Name'
@@ -71,7 +71,7 @@ export const ComponentsForm = ({
                               }))}
                               value={values[`fields[${i}].type`]}
                             />
-                          </FieldWrapper>
+                          </ArrayFieldWrapper>
                         )
                       })}
                       <Button

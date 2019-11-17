@@ -1,5 +1,5 @@
 import styled from 'styled-components'
 
-export const FieldWrapper = styled.div`
+export const ArrayFieldWrapper = styled.div`
   margin-bottom: 20px;
 `

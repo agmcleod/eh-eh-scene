@@ -6,10 +6,9 @@ import Button from '@material-ui/core/Button'
 
 import { TopActionButton } from 'common/components/TopActionButton'
 import { H3 } from 'common/components/Header'
+import { ListItem } from 'common/components/ListItem'
 import { FIELD_TYPE_DETAILS } from 'common/constants'
 import { ComponentsForm } from './ComponentsForm'
-
-import { ComponentWrapper } from './styledComponents'
 
 export const Components = ({ components }) => {
   const [createDialogOpen, setCreateDialogOpen] = useState(false)
@@ -28,7 +27,7 @@ export const Components = ({ components }) => {
       <div>
         {components.map((c, i) => {
           return (
-            <ComponentWrapper key={c.name}>
+            <ListItem key={c.name}>
               <H3>
                 {c.name}{' '}
                 <Button
@@ -56,7 +55,7 @@ export const Components = ({ components }) => {
                   ))}
                 </tbody>
               </table>
-            </ComponentWrapper>
+            </ListItem>
           )
         })}
       </div>

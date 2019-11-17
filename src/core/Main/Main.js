@@ -11,6 +11,7 @@ import { renderMap } from 'common/renderMap'
 import { parseMapData } from 'common/parseMapData'
 import { TabPanel } from 'common/components/TabPanel'
 import { Components } from './Components'
+import { EntityDefinitions } from './EntityDefinitions'
 
 export const Main = ({ setTmxFilePath }) => {
   const canvas = React.createRef()
@@ -73,7 +74,9 @@ export const Main = ({ setTmxFilePath }) => {
       <TabPanel index={0} value={currentTab}>
         <canvas id='canvas' ref={canvas} />
       </TabPanel>
-      <TabPanel index={1} value={currentTab} />
+      <TabPanel index={1} value={currentTab}>
+        <EntityDefinitions />
+      </TabPanel>
       <TabPanel index={2} value={currentTab}>
         <Components />
       </TabPanel>
