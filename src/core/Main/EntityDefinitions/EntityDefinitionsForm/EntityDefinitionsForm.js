@@ -1,13 +1,15 @@
 import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { Formik, FieldArray } from 'formik'
+import get from 'lodash/get'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import Button from '@material-ui/core/Button'
 
-import { ArrayFieldWrapper } from 'common/components/ArrayFieldWrapper'
-import { Select } from 'common/components/Select'
+import { Checkbox } from 'common/components/Checkbox'
 import { TextField } from 'common/components/TextField'
+import { ComponentSelect } from './ComponentSelect'
+import { validationSchema } from './validationSchema'
 
 export const EntityDefinitionsForm = ({
   components,
@@ -25,13 +27,14 @@ export const EntityDefinitionsForm = ({
         ...entityDefinition
       }
     }
-    return { name: '', components: [], hasShape: false }
-  }, [])
+    return { name: '', components: [], hasShape: false, entityDefinitions }
+  }, [editIndex, entityDefinitions])
 
   return (
     <Formik
       initialValues={initialValues}
-      render={({ handleSubmit, values }) => {
+      validationSchema={validationSchema}
+      render={({ handleSubmit, setFieldValue, values }) => {
         return (
           <>
             <DialogContent>
@@ -43,24 +46,45 @@ export const EntityDefinitionsForm = ({
                     <fieldset>
                       <legend>Components</legend>
                       {values.components.map((_, i) => {
+                        const componentValue = get(
+                          values,
+                          `components[${i}].component`
+                        )
+                        const fieldValues = get(
+                          values,
+                          `components[${i}].fieldValues`
+                        )
                         return (
-                          <ArrayFieldWrapper key={i}>
-                            <Select
-                              id={`components[${i}].component`}
-                              label='Component'
-                              name={`components[${i}].component`}
-                              options={components.map((c, i) => ({
-                                label: c.name,
-                                value: i
-                              }))}
+                          <div key={i}>
+                            <ComponentSelect
+                              components={components}
+                              fieldPath={`components[${i}]`}
+                              currentComponent={componentValue}
+                              setFieldValue={setFieldValue}
                             />
-                          </ArrayFieldWrapper>
+                            {Object.values(fieldValues).map(fieldValue => {
+                              return (
+                                <div>
+                                  <TextField
+                                    name={`components[${i}].fieldValues.${fieldValue.uuid}.value`}
+                                    label='Field Value'
+                                    type='text'
+                                    fullWidth
+                                  />
+                                  <Checkbox
+                                    label='Allow Override?'
+                                    name={`components[${i}].fieldValues.${fieldValue.uuid}.allowOverride`}
+                                  />
+                                </div>
+                              )
+                            })}
+                          </div>
                         )
                       })}
                       <Button
                         onClick={() =>
                           componentsArrayHelper.push({
-                            component: null,
+                            component: '',
                             fieldValues: {}
                           })
                         }
@@ -72,6 +96,17 @@ export const EntityDefinitionsForm = ({
                 }}
               />
             </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={() => setCreateDialogOpen(false)}
+                color='primary'
+              >
+                Cancel
+              </Button>
+              <Button onClick={handleSubmit} color='primary'>
+                Create
+              </Button>
+            </DialogActions>
           </>
         )
       }}

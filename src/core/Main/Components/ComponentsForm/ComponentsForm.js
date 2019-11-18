@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { Formik, FieldArray } from 'formik'
+import uuid from 'uuid/v4'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import Button from '@material-ui/core/Button'
@@ -35,7 +36,7 @@ export const ComponentsForm = ({
         if (editIndex !== undefined) {
           updateComponent({ index: editIndex, component: values })
         } else {
-          addComponent(values)
+          addComponent({ ...values, uuid: uuid() })
         }
         setSubmitting(false)
         setCreateDialogOpen(false)
@@ -76,7 +77,11 @@ export const ComponentsForm = ({
                       })}
                       <Button
                         onClick={() =>
-                          fieldsArrayHelper.push({ name: '', type: '' })
+                          fieldsArrayHelper.push({
+                            uuid: uuid(),
+                            name: '',
+                            type: ''
+                          })
                         }
                       >
                         Add Field

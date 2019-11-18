@@ -11,7 +11,7 @@ const mapStateToProps = state => ({
   )
 })
 
-export const EntityDefinitions = connect(mapStateToProps, {
+export const EntityDefinitionsForm = connect(mapStateToProps, {
   addEntityDefinition: entityDefinitionsSlice.actions.addEntityDefinition,
   updateEntityDefinition: entityDefinitionsSlice.actions.updateEntityDefinition
 })(EntityDefinitionsFormComp)
